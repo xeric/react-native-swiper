@@ -439,7 +439,9 @@ module.exports = React.createClass({
                        contentOffset={this.state.offset}
                        onScrollBeginDrag={this.onScrollBegin}
                        onMomentumScrollEnd={this.onScrollEnd}
-                       onScroll={this.onScroll}>
+                       onScroll={this.onScroll}
+                       scrollEventThrottle={16}
+                       >
              {pages}
             </ScrollView>
          );
