@@ -123,6 +123,7 @@ module.exports = React.createClass({
     autoplayDirection                : React.PropTypes.bool,
     index                            : React.PropTypes.number,
     renderPagination                 : React.PropTypes.func,
+    onScroll                         : React.PropTypes.func,
   },
 
   mixins: [TimerMixin],
@@ -268,6 +269,10 @@ module.exports = React.createClass({
       // if `onMomentumScrollEnd` registered will be called here
       this.props.onMomentumScrollEnd && this.props.onMomentumScrollEnd(e, this.state, this)
     })
+  },
+
+  onScroll(e) {
+    this.props.onScroll(e);
   },
 
   /**
@@ -433,7 +438,8 @@ module.exports = React.createClass({
                        contentContainerStyle={[styles.wrapper, this.props.style]}
                        contentOffset={this.state.offset}
                        onScrollBeginDrag={this.onScrollBegin}
-                       onMomentumScrollEnd={this.onScrollEnd}>
+                       onMomentumScrollEnd={this.onScrollEnd}
+                       onScroll={this.onScroll}>
              {pages}
             </ScrollView>
          );
