@@ -272,8 +272,15 @@ module.exports = React.createClass({
   },
 
   onScroll(e) {
-    this.props.onScroll(e);
+    this.props.onScroll({ x: e.nativeEvent.contentOffset.x });
   },
+
+  onAndroidScroll(e) {
+    const event = e.nativeEvent;
+    const x = event.position * this.state.width + event.offset * this.state.width;
+    this.props.onScroll({ x });
+  },
+
 
   /**
    * Update index after scroll
@@ -448,7 +455,9 @@ module.exports = React.createClass({
       return (
          <ViewPagerAndroid ref="scrollView"
             onPageSelected={this.onScrollEnd}
-            style={{flex: 1}}>
+            style={{flex: 1}}
+            onPageScroll={this.onAndroidScroll}
+          >
             {pages}
          </ViewPagerAndroid>
       );
