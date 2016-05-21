@@ -2,8 +2,7 @@
  * react-native-swiper
  * @author leecade<leecade@163.com>
  */
-import React from 'react'
-import ReactNative, {
+import React, {
   StyleSheet,
   Text,
   View,
@@ -196,10 +195,7 @@ module.exports = React.createClass({
     initState.offset = {}
 
     if (initState.total > 1) {
-      var setup = initState.index
-      if ( props.loop ) {
-        setup++
-      }
+      var setup = props.loop ? 1 : initState.index
       initState.offset[initState.dir] = initState.dir == 'y'
         ? initState.height * setup
         : initState.width * setup
@@ -248,6 +244,7 @@ module.exports = React.createClass({
    * @param  {object} e native event
    */
   onScrollEnd(e) {
+
     // update scroll state
     this.setState({
       isScrolling: false
@@ -275,15 +272,8 @@ module.exports = React.createClass({
   },
 
   onScroll(e) {
-    this.props.onScroll({ x: e.nativeEvent.contentOffset.x });
+    this.props.onScroll(e);
   },
-
-  onAndroidScroll(e) {
-    const event = e.nativeEvent;
-    const x = event.position * this.state.width + event.offset * this.state.width;
-    this.props.onScroll({ x });
-  },
-
 
   /**
    * Update index after scroll
@@ -333,33 +323,13 @@ module.exports = React.createClass({
     let y = 0
     if(state.dir == 'x') x = diff * state.width
     if(state.dir == 'y') y = diff * state.height
-
-    if (Platform.OS === 'android') {
-      this.refs.scrollView && this.refs.scrollView.setPage(diff)
-    } else {
-      this.refs.scrollView && this.refs.scrollView.scrollTo({
-        y: y,
-        x: x
-      })
-    }
+    this.refs.scrollView && this.refs.scrollView.scrollTo(y, x)
 
     // update scroll state
     this.setState({
       isScrolling: true,
       autoplayEnd: false,
     })
-
-    // trigger onScrollEnd manually in android
-    if (Platform.OS === 'android') {
-      this.setTimeout(() => {
-        this.onScrollEnd({
-          nativeEvent: {
-            position: diff,
-          }
-        });
-      }, 50);
-    }
-
   },
 
   /**
@@ -477,12 +447,8 @@ module.exports = React.createClass({
          );
       return (
          <ViewPagerAndroid ref="scrollView"
-          {...this.props}
-            initialPage={this.state.index}
             onPageSelected={this.onScrollEnd}
-            style={{flex: 1}}
-            onPageScroll={this.onAndroidScroll}
-          >
+            style={{flex: 1}}>
             {pages}
          </ViewPagerAndroid>
       );
