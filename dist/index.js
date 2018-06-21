@@ -109,7 +109,9 @@ var styles = _reactNative.StyleSheet.create({
 
 // missing `module.exports = exports['default'];` with babel6
 // export default React.createClass({
-module.exports = _react2.default.createClass({
+var createReactClass = require('create-react-class')
+
+module.exports = createReactClass({
   displayName: 'exports',
 
   mixins: [_reactTimerMixin2.default],
