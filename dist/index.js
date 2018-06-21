@@ -112,32 +112,6 @@ var styles = _reactNative.StyleSheet.create({
 module.exports = _react2.default.createClass({
   displayName: 'exports',
 
-
-  /**
-   * Props Validation
-   * @type {Object}
-   */
-  propTypes: {
-    horizontal: _react2.default.PropTypes.bool,
-    children: _react2.default.PropTypes.node.isRequired,
-    style: _reactNative.View.propTypes.style,
-    pagingEnabled: _react2.default.PropTypes.bool,
-    showsHorizontalScrollIndicator: _react2.default.PropTypes.bool,
-    showsVerticalScrollIndicator: _react2.default.PropTypes.bool,
-    bounces: _react2.default.PropTypes.bool,
-    scrollsToTop: _react2.default.PropTypes.bool,
-    removeClippedSubviews: _react2.default.PropTypes.bool,
-    automaticallyAdjustContentInsets: _react2.default.PropTypes.bool,
-    showsPagination: _react2.default.PropTypes.bool,
-    showsButtons: _react2.default.PropTypes.bool,
-    loop: _react2.default.PropTypes.bool,
-    autoplay: _react2.default.PropTypes.bool,
-    autoplayTimeout: _react2.default.PropTypes.number,
-    autoplayDirection: _react2.default.PropTypes.bool,
-    index: _react2.default.PropTypes.number,
-    renderPagination: _react2.default.PropTypes.func
-  },
-
   mixins: [_reactTimerMixin2.default],
 
   /**
